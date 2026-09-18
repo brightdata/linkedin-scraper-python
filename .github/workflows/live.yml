@@ -362,12 +362,18 @@ jobs:
           # A block that exits 0 having printed nothing is not a crash: the call
           # ran and returned no rows. Say so, or the next reader hunts for one.
           if ok:
-              shown = (out.splitlines() or [""])[0]
+              shown = [(out.splitlines() or [""])[0]]
           elif status == 0 and not out and not err:
-              shown = "exited 0 and printed nothing: the call returned no rows"
+              shown = ["exited 0 and printed nothing: the call returned no rows"]
           else:
-              shown = (err.splitlines() or out.splitlines() or [f"no output, exit {status}"])[-1]
-          print(f"\n`{b['title']}`: {'ok' if ok else 'FAILED'} in {secs}s\n\n    {shown[:120]}")
+              # The last line alone hides the cause. For the CLI it is the
+              # "Saved 1 of 2" summary, and the line saying which profile failed
+              # and why sits above it. Show the failure lines, else the tail.
+              lines = [l for l in (out + "\n" + err).splitlines() if l.strip()]
+              reasons = [l for l in lines if l.startswith("failed ") or "Error" in l]
+              shown = (reasons or lines or [f"no output, exit {status}"])[-6:]
+          body = "\n".join(f"    {line[:160]}" for line in shown)
+          print(f"\n`{b['title']}`: {'ok' if ok else 'FAILED'} in {secs}s\n\n{body}")
           sys.exit(0 if ok else 1)
           PY
 
