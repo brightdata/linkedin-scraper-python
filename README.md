@@ -75,9 +75,6 @@ pip install git+https://github.com/brightdata/linkedin-scraper-python
 linkedin-scraper satyanadella reidhoffman
 ```
 
-While this repository is private, that install line works only for people with
-access to it.
-
 ```
 Fetching 2 LinkedIn profiles: satyanadella, reidhoffman
 One job for all of them, usually one to three minutes. One credit per profile.
