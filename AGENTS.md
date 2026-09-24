@@ -120,5 +120,5 @@ wave: rerun it before looking for a code change.
 - The field table sits between `<!-- fields:start -->` and `<!-- fields:end -->`
   and is regenerated daily. Do not edit it by hand.
 - The "last verified" badge line is rewritten by the daily run. Do not edit it.
-- Keep it small: 14 files and about 300 lines of Python. Do not add retries,
+- Keep it small: 15 files and about 300 lines of Python. Do not add retries,
   deduplication, scheduling, databases, async examples or concurrency.
